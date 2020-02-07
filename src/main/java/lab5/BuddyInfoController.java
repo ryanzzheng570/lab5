@@ -25,9 +25,9 @@ public class BuddyInfoController {
         return newBuddy;
     }
 
-    @DeleteMapping(value = "/buddy")
-    public BuddyInfo removeBuddy(@RequestParam("id") Integer id, @RequestParam("buddyId") Integer buddyId){
-        AddressBook addressBook = addressBookRepository.findById(id).orElse(null);
+    @DeleteMapping(value = "/deleteBuddy")
+    public BuddyInfo removeBuddy(@RequestParam("abId") Integer abId, @RequestParam("buddyId") Integer buddyId){
+        AddressBook addressBook = addressBookRepository.findById(abId).orElse(null);
         BuddyInfo buddyInfo = addressBook.findById(buddyId);
         addressBook.removeBuddy(buddyInfo);
         addressBookRepository.save(addressBook);
