@@ -3,6 +3,8 @@ package persistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class BuddyInfoController {
     @Autowired
@@ -26,11 +28,11 @@ public class BuddyInfoController {
     }
 
     @DeleteMapping(value = "/deleteBuddy")
-    public BuddyInfo removeBuddy(@RequestParam("abId") Integer abId, @RequestParam("buddyId") Integer buddyId){
+    public List<BuddyInfo> removeBuddy(@RequestParam("abId") Integer abId, @RequestParam("buddyId") Integer buddyId){
         AddressBook addressBook = addressBookRepository.findById(abId).orElse(null);
         BuddyInfo buddyInfo = addressBook.findById(buddyId);
         addressBook.removeBuddy(buddyInfo);
         addressBookRepository.save(addressBook);
-        return buddyInfo;
+        return addressBook.getBdInfo();
     }
 }

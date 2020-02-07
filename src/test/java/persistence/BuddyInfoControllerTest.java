@@ -26,10 +26,14 @@ public class BuddyInfoControllerTest {
                 .andExpect(content().string(containsString("\"id\"")));
         this.mockMvc.perform(post("/addBuddy?abId=1&firstName=TestF&lastName=TestL&phoneNumber=123456&address=TestAddress")).andDo(print()).andExpect(status().isOk())
                 .andExpect(content().string(containsString("TestF")));
+        this.mockMvc.perform(post("/addBuddy?abId=1&firstName=TestF2&lastName=Test2L&phoneNumber=123456&address=TestAddress2")).andDo(print()).andExpect(status().isOk())
+                .andExpect(content().string(containsString("TestF2")));
         this.mockMvc.perform(get("/getBuddy?abId=1&buddyId=1")).andDo(print()).andExpect(status().isOk())
                 .andExpect(content().string(containsString("TestF")));
         this.mockMvc.perform(delete("/deleteBuddy?abId=1&buddyId=1")).andDo(print()).andExpect(status().isOk())
-                .andExpect(content().string(containsString("TestF")));
+                .andExpect(content().string(containsString("TestF2")));
+        this.mockMvc.perform(get("/getBuddy?abId=1&buddyId=1")).andDo(print()).andExpect(content().string(""));
+
     }
 
 }
