@@ -1,4 +1,4 @@
-package lab5;
+package persistence;
 
 import org.springframework.data.repository.CrudRepository;
 

@@ -1,4 +1,4 @@
-package lab5;
+package persistence;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
