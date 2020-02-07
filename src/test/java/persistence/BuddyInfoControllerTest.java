@@ -7,12 +7,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.not;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
@@ -26,13 +28,12 @@ public class BuddyInfoControllerTest {
                 .andExpect(content().string(containsString("\"id\"")));
         this.mockMvc.perform(post("/addBuddy?abId=1&firstName=TestF&lastName=TestL&phoneNumber=123456&address=TestAddress")).andDo(print()).andExpect(status().isOk())
                 .andExpect(content().string(containsString("TestF")));
-        this.mockMvc.perform(post("/addBuddy?abId=1&firstName=TestF2&lastName=Test2L&phoneNumber=123456&address=TestAddress2")).andDo(print()).andExpect(status().isOk())
-                .andExpect(content().string(containsString("TestF2")));
+        this.mockMvc.perform(post("/addBuddy?abId=1&firstName=Testing2F&lastName=Testing2L&phoneNumber=123456&address=TestAddress2")).andDo(print()).andExpect(status().isOk())
+                .andExpect(content().string(containsString("Testing2F")));
         this.mockMvc.perform(get("/getBuddy?abId=1&buddyId=1")).andDo(print()).andExpect(status().isOk())
                 .andExpect(content().string(containsString("TestF")));
         this.mockMvc.perform(delete("/deleteBuddy?abId=1&buddyId=1")).andDo(print()).andExpect(status().isOk())
-                .andExpect(content().string(containsString("TestF2")));
-        this.mockMvc.perform(get("/getBuddy?abId=1&buddyId=1")).andDo(print()).andExpect(content().string(""));
+                .andExpect(content().string(containsString("Testing2F"))).andExpect(content().string(not(containsString("TestF"))));
 
     }
 
