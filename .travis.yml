@@ -4,5 +4,5 @@ jdk:
 deploy:
   provider: heroku
   api-key:
-    secure: bceedcb7-c9a8-4daa-89e4-c51b3ff63a00
-  app: lippep-spring-boot-test
+    secure: $HEROKU_API_KEY
+  app: sysc4806lab5r
